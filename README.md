@@ -38,36 +38,53 @@ get book by name
 get all books
 
 query {
-  books{  
+
+  books{
+  
     bid    
     name    
     genre    
     author{    
       name      
-    }    
-  }  
+    }
+    
+  }
+  
 }
 
 get author by id
-{  
+{
+
   author(id: "2"){
+  
     age
     name
+    
   }
+  
 }
 
 // add book
 
 mutation {
+
 	addBook(input : {name: "NodeJs", genre: "Technology" ,bid:"7", authorId: "3"}) {
+	
 	 bid
-    name
-    genre
-    author{
-      name
-    }
+	 
+    	name
+	
+    	genre
+	
+    	author{
+	
+      		name
+   	 }
+	 
 	}
+	
 }
+
 
 // update book
 
