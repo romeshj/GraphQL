@@ -14,11 +14,11 @@ const BookType = new GraphQLObjectType({
 		name : { type : GraphQLString },
 		genre : { type : GraphQLString },
 		author : {
-			type : AuthorType,
+			type : new GraphQLList(AuthorType),
 			resolve(parent, args){
-				console.log(parent)
+				//console.log(" AUTHORS " , parent,  parent.authorId, _.filter(authors, { aid: parent.authorId }))
 				// code to get author by book id
-				return _.find(authors, { aid: parent.authorId })
+				return _.filter(authors, { aid: parent.authorId })
 			}
 		}
 	})
@@ -30,6 +30,14 @@ const AuthorType = new GraphQLObjectType({
 		aid : { type : GraphQLID },
 		name : { type : GraphQLString },
 		age : { type : GraphQLInt },
+		books : {
+			type : new GraphQLList(BookType),
+			resolve(parent, args){
+				//console.log(" BOOKS " , parent,  parent.aid, _.filter(books, { authorId: parent.aid }))
+				// code to get author by book id
+				return _.filter(books, { authorId: parent.aid })
+			}
+		}
 	}) 
 });
 
@@ -86,7 +94,7 @@ const mutationType = new GraphQLObjectType({
 				books.map(book => {
 					if(book.bid === args.input.bid){book.name = args.input.name; return book;}
 				})
-				console.log(books)
+				//console.log(books)
 				return books
 			}
 		}
@@ -125,11 +133,14 @@ const RootQuery = new GraphQLObjectType({
 			args : { name : { type : GraphQLString} },
 			resolve(parent, args){
 				// code to get book by name
-				console.log(args.name)
-				console.log(books.filter(book => book.name === args.name))
+				//console.log(args.name)
+				//console.log(books.filter(book => book.name === args.name))
 				return books.filter(book => book.name == args.name);
 			}
 		}
+		
+		
+		
 	}
 });
 
@@ -175,6 +186,15 @@ get author by id
   author(id: "2"){
     age
     name
+  }
+}
+
+get author by id
+{  
+  author(id: "2"){
+    books{
+		name
+	}
   }
 }
 
