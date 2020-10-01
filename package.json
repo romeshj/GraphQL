@@ -4,15 +4,20 @@
   "description": "create express graphql server",
   "main": "index.js",
   "scripts": {
-	"start" : "node server.js",
+    "start": "node server.js",
+    "server1": "node server1.js",
+	"apolloserver": "node server-apollo.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "apollo-server-express": "^2.18.1",
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
     "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
+    "graphql-tools": "^6.2.4",
     "lodash": "^4.17.20"
   }
 }
